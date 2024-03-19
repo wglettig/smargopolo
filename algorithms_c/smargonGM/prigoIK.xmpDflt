@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE Module SYSTEM "xmp1.dtd">
+<Module>
+    <Parameter lower-limit="0.304159265" name="a5" tunable="true" unit="rad" upper-limit="0.324159265" value="0.314159265"/>
+    <Parameter lower-limit="10.5" name="l11" tunable="true" unit="mm" upper-limit="11.5" value="11.0"/>
+    <Parameter lower-limit="14.5" name="l12" tunable="true" unit="mm" upper-limit="15.5" value="15.0"/>
+    <Parameter lower-limit="17.5" name="l13" tunable="true" unit="mm" upper-limit="18.5" value="18.0"/>
+    <Parameter lower-limit="8.5" name="l14" tunable="true" unit="mm" upper-limit="9.5" value="9.0"/>
+    <Parameter lower-limit="68.5" name="l24" tunable="true" unit="mm" upper-limit="69.5" value="69.0"/>
+    <Parameter lower-limit="79.5" name="l31" tunable="true" unit="mm" upper-limit="80.5" value="80.0"/>
+    <Parameter lower-limit="35.5" name="l34" tunable="true" unit="mm" upper-limit="36.5" value="36.0"/>
+    <Parameter lower-limit="36.0" name="l35" tunable="true" unit="mm" upper-limit="37.0" value="36.5"/>
+    <Parameter lower-limit="46.5" name="l41" tunable="true" unit="mm" upper-limit="47.5" value="47.0"/>
+    <Parameter lower-limit="46.5" name="l42" tunable="true" unit="mm" upper-limit="47.5" value="47.0"/>
+    <Parameter lower-limit="46.5" name="l43" tunable="true" unit="mm" upper-limit="47.5" value="47.0"/>
+    <Parameter lower-limit="109.5" name="l44" tunable="true" unit="mm" upper-limit="110.5" value="110.0"/>
+    <Parameter lower-limit="158.5" name="l51" tunable="true" unit="mm" upper-limit="159.5" value="159.0"/>
+    <Parameter lower-limit="8.074" name="l52" tunable="true" unit="mm" upper-limit="9.074" value="8.574"/>
+    <Parameter lower-limit="15.5" name="l53" tunable="true" unit="mm" upper-limit="16.5" value="16.0"/>
+    <Parameter lower-limit="22.625" name="l54" tunable="true" unit="mm" upper-limit="23.625" value="23.125"/>
+    <Parameter lower-limit="45.75" name="l55" tunable="true" unit="mm" upper-limit="46.75" value="46.25"/>
+    <Parameter lower-limit="79.607" name="l56" tunable="true" unit="mm" upper-limit="80.607" value="80.107"/>
+    <Parameter lower-limit="171.0" name="offsetR1" tunable="true" unit="mm" upper-limit="172.0" value="171.5"/>
+    <Parameter lower-limit="171.0" name="offsetR2" tunable="true" unit="mm" upper-limit="172.0" value="171.5"/>
+    <Parameter lower-limit="171.0" name="offsetR3" tunable="true" unit="mm" upper-limit="172.0" value="171.5"/>
+    <Parameter lower-limit="-11.434" name="offsetR4" tunable="true" unit="mm" upper-limit="-10.434" value="-10.934"/>
+    <Parameter lower-limit="-35.5" name="offsetS1" tunable="true" unit="mm" upper-limit="-33.5" value="-34.5"/>
+    <Parameter lower-limit="-35.5" name="offsetS2" tunable="true" unit="mm" upper-limit="-33.5" value="-34.5"/>
+    <Parameter lower-limit="-35.5" name="offsetS3" tunable="true" unit="mm" upper-limit="-33.5" value="-34.5"/>
+    <Parameter lower-limit="-1.0" name="offsetS4" tunable="true" unit="mm" upper-limit="1.0" value="0.0"/>
+</Module>

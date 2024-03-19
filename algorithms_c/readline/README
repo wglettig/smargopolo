@@ -1,0 +1,37 @@
+24.5.2019 Wayne Glettig
+---
+
+When working on NUC, install DDD. DDD is great to debug simple c files.
+
+
+To do:
+
+Implement C++ Class to use for motion control for SmarGon.
+
+What is missing:
+
+COMPONENTS:
+
+NewGon STATE CLASS, like an Object (as in Struct with methods) containing:
+    * Configuration PARAMETERS
+    * Current Operational STATUS
+of NewGon.
+
+
+NewGon TRAJECTORY Models: implement Trapezoidal & S-curve motion, or following mode. 
+That can be applied either to a physical axis or to a virtual axis.
+
+
+
+
+QUESTIONS:
+  * How to implement Geometrical Models, IK etc.?
+  * 
+  
+
+
+
+
+
+
+

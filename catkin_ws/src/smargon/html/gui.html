@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.button {
+  width: 200px;
+  text-align: left;
+}
+
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+</style>
+
+</head>
+
+
+
+<body>
+SmarGonMCS2 Rudimentary GUI
+<br>
+
+<!-- Button Bar -->
+<button onclick="setMode(0)" class="button" id="buttonMODE0">MODE: 0 UNINITIALIZED</button><br>
+<button onclick="setMode(1)" class="button" id="buttonMODE1">MODE: 1 INITIALIZING...</button><br>
+<button onclick="setMode(2)" class="button" id="buttonMODE2">MODE: 2 READY</button><br>
+<!-- button onclick="setMode(3)">MODE: 6 GO HOME</button><br -->
+<!-- button onclick="setMode(8)">MODE: 8 SINEWAVE</button><br -->
+<script>
+    function setMode(mode) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://127.0.0.1:3000/mode?mode="+mode; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+</script>
+
+<br>
+<button onclick="setPoseHome()">SET POSE: HOME</button>
+<button onclick="setPose45Deg()">SET POSE: CHI45</button>
+<script>
+    function setPoseHome() {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://127.0.0.1:3000/targetSCS?SHX=0&SHY=0&SHZ=20&OMEGA=0&CHI=0&PHI=0&OX=0&OY=0&OZ=180"; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+    function setPose45Deg() {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://127.0.0.1:3000/targetSCS?SHX=0&SHY=0&SHZ=20&OMEGA=0&CHI=45&PHI=0&OX=0&OY=0&OZ=180"; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+</script>
+<br>
+
+<!-- SHX Slider -->
+<div class="slidecontainer">
+<strong>SHX:</strong>
+    <input type="range" min="-2" max="2" value="0" step="0.1" class="slider" id="SHX_slider">
+</div>
+<span>Value:</span> <span id="SHX_value" style="font-weight:bold;color:red"></span>
+<script>
+    var SHX_slider = document.getElementById("SHX_slider");
+    var SHX_output = document.getElementById("SHX_value");
+    SHX_output.innerHTML = SHX_slider.value; // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    SHX_slider.oninput = function() {
+        SHX_output.innerHTML = SHX_slider.value;
+        let xhr = new XMLHttpRequest(); 
+        let url = "http://127.0.0.1:3000/targetSCS?SHX="+SHX_slider.value; 
+        xhr.open("PUT", url); 
+        xhr.send(); 
+    }
+</script>
+<br>
+
+<!-- SHY Slider -->
+<div class="slidecontainer">
+    <strong>SHY:</strong>
+    <input type="range" min="-2" max="2" value="0" step="0.1" class="slider" id="SHY_slider">
+</div>
+<span>Value:</span> <span id="SHY_value" style="font-weight:bold;color:red"></span>
+<script>
+    var SHY_slider = document.getElementById("SHY_slider");
+    var SHY_output = document.getElementById("SHY_value");
+    SHY_output.innerHTML = SHY_slider.value; // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    SHY_slider.oninput = function() {
+        SHY_output.innerHTML = SHY_slider.value;
+        let xhr = new XMLHttpRequest(); 
+        let url = "http://127.0.0.1:3000/targetSCS?SHY="+SHY_slider.value; 
+        xhr.open("PUT", url); 
+        xhr.send(); 
+    }
+</script>
+<br>
+
+<!-- SHZ Slider -->
+<div class="slidecontainer">
+    <strong>SHZ:</strong>
+    <input type="range" min="10" max="25" value="20" step="0.1" class="slider" id="SHZ_slider">
+</div>
+<span>Value:</span> <span id="SHZ_value" style="font-weight:bold;color:red"></span>
+<script>
+    var SHZ_slider = document.getElementById("SHZ_slider");
+    var SHZ_output = document.getElementById("SHZ_value");
+    SHZ_output.innerHTML = SHZ_slider.value; // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    SHZ_slider.oninput = function() {
+        SHZ_output.innerHTML = SHZ_slider.value;
+        let xhr = new XMLHttpRequest(); 
+        let url = "http://127.0.0.1:3000/targetSCS?SHZ="+SHZ_slider.value; 
+        xhr.open("PUT", url); 
+        xhr.send(); 
+    }
+</script>
+<br>
+
+<!-- CHI Slider -->
+<div class="slidecontainer">
+    <strong>CHI:</strong>
+    <input type="range" min="0" max="90" value="0" class="slider" id="CHI_slider">
+</div>
+<span>Value:</span> <span id="CHI_value" style="font-weight:bold;color:red"></span>
+<script>
+    var CHI_slider = document.getElementById("CHI_slider");
+    var CHI_output = document.getElementById("CHI_value");
+    CHI_output.innerHTML = CHI_slider.value; // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    CHI_slider.oninput = function() {
+        CHI_output.innerHTML = CHI_slider.value;
+        let xhr = new XMLHttpRequest(); 
+        let url = "http://127.0.0.1:3000/targetSCS?CHI="+CHI_slider.value; 
+        xhr.open("PUT", url); 
+        xhr.send(); 
+    }
+</script>
+<br>
+
+
+<!-- PHI Slider -->
+<div class="slidecontainer">
+    <strong>PHI:</strong>
+    <input type="range" min="-180" max="180" value="0" class="slider" id="PHI_slider">
+</div>
+<span>Value:</span> <span id="PHI_value" style="font-weight:bold;color:red"></span>
+<script>
+    var PHI_slider = document.getElementById("PHI_slider");
+    var PHI_output = document.getElementById("PHI_value");
+    PHI_output.innerHTML = PHI_slider.value; // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    PHI_slider.oninput = function() {
+        PHI_output.innerHTML = PHI_slider.value;
+        let xhr = new XMLHttpRequest(); 
+        let url = "http://127.0.0.1:3000/targetSCS?PHI="+PHI_slider.value; 
+        xhr.open("PUT", url); 
+        xhr.send(); 
+    }
+</script>
+<br>
+
+
+<br>
+<button onclick="setSHX1()">SHX: -1mm</button>
+<button onclick="setSHX2()">SHY: +1mm</button>
+<script>
+    function setSHX1() {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://127.0.0.1:3000/targetSCS_rel?SHX=-1"; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+    function setSHX2() {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://127.0.0.1:3000/targetSCS_rel?SHX=1"; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+</script>
+<br>
+
+
+<br>
+<button onclick="setSHY1()">SHY: -1mm</button>
+<button onclick="setSHY2()">SHY: +1mm</button>
+<script>
+    function setSHY1() {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://127.0.0.1:3000/targetSCS_rel?SHY=-1"; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+    function setSHY2() {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://127.0.0.1:3000/targetSCS_rel?SHY=1"; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+</script>
+<br>
+
+
+<!-- State SCS JSON Display -->
+<span>State:</span><span id="stateSCS_JSON" style="font-family:monospace"></span><br>
+
+<script>
+    var jsonSCSfield = document.getElementById("stateSCS_JSON");
+    
+    //Function to grab JSON
+    var getSCSJSON = function(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+          var status = xhr.status;
+          if (status === 200) {
+            callback(null, xhr.response);
+          } else {
+            callback(status, xhr.response);
+          }
+        };
+        xhr.send();
+    };
+    //Function to continuously read JSON from SmarGon RESTapi and update page
+    var intervalSCSID = setInterval(function(){
+        getSCSJSON('http://127.0.0.1:3000/readbackSCS',
+        function(err, data) {
+          if (err !== null) {
+            alert('Something went wrong: ' + err);
+          } else {
+            //Here we update the span:
+	    jsonSCSfield.innerHTML = "<pre>"+JSON.stringify(data,undefined,2)+"</pre>";
+    	    console.log(JSON.stringify(data,undefined,2));
+	    var json = JSON.parse(data);
+	    var bMODE0 = document.getElementById("buttonMODE0");
+    var bMODE1 = document.getElementById("buttonMODE1");
+    var bMODE2 = document.getElementById("buttonMODE2");
+	    if (json.mode == 0) {
+	      jsonSCSfield.style.backgroundColor="#427ef5";
+	      bMODE1.style.backgroundColor="";
+	      bMODE2.style.backgroundColor="";
+	    }
+	    if (json.mode == 1) {
+	      bMODE0style.backgroundColor="";
+	      bMODE1.style.backgroundColor="#427ef5";
+	      bMODE2.style.backgroundColor="";
+	    }
+	    if (json.mode == 2) {
+	      bMODE0.style.backgroundColor="";
+	      bMODE1.style.backgroundColor="";
+	      bMODE2.style.backgroundColor="#427ef5";
+	    }
+
+          }
+        });
+    }, 500);
+
+</script>
+
+
+
+<!-- StateMCS JSON Display -->
+<span>State:</span><span id="state_JSON" style="font-family:monospace"></span><br>
+
+<script>
+    var jsonfield = document.getElementById("state_JSON");
+    
+    //Function to grab JSON
+    var getJSON = function(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+          var status = xhr.status;
+          if (status === 200) {
+            callback(null, xhr.response);
+          } else {
+            callback(status, xhr.response);
+          }
+        };
+        xhr.send();
+    };
+    //Function to continuously read JSON from SmarGon RESTapi and update page
+    var intervalID = setInterval(function(){
+        getJSON('http://127.0.0.1:3000/readbackMCS',
+        function(err, data) {
+          if (err !== null) {
+            alert('Something went wrong: ' + err);
+          } else {
+            //Here we update the span:
+	    jsonfield.innerHTML = "<pre>"+JSON.stringify(data,undefined,2)+"</pre>";
+
+          }
+        });
+    }, 500);
+
+</script>
+
+<body>

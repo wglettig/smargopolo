@@ -1,0 +1,17 @@
+[Unit]
+Description=SmarGon control system
+After=network.target
+
+[Service]
+Type=simple
+User=ros
+Group=ros
+SyslogIdentifier=smargon
+Restart=always
+RestartSec=5
+WorkingDirectory=/home/ros
+ExecStart=/usr/bin/env PUPPET_GROUP=x06sa BEAMLINE_XNAME=X06SA /home/ros/smargon_startup.sh
+
+[Install]
+WantedBy=multi-user.target
+

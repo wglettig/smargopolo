@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+<style>
+.button {
+  width: 200px;
+  text-align: left;
+  background-color: #999999; /*Grey */
+  border: none;
+  color: white;
+  padding: 5px 5px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.buttonCorr {
+  width: 80px;
+  text-align: middle;
+  background-color: #999999; /*Grey */
+  border: none;
+  color: white;
+  padding: 5px 5px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.nudgebutton {
+  width: 110px;
+  text-align: middle;
+  /*background-color: #999999; /*Grey */
+  border: 1px 
+  color: black;
+  padding: 5px 5px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  background: #999999; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  background: #996633;
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  background: #996633;
+  cursor: pointer; /* Cursor on hover */
+}
+
+
+.slider_rbv {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 10px; /* Specified height */
+  background: #FFFFFF; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider_rbv::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 10px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  background: #996633;
+}
+
+.slider_rbv::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 10px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  background: #996633;
+}
+</style>
+
+
+</head>
+
+
+
+<body>
+<style>
+#title_wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  border: 1.5px solid;
+  border-radius: 3px;
+}
+
+#title_left {
+  flex: 0 0 300px; 
+}
+
+#title_mid {
+  /*flex: 100 100;*/
+  flex: 0 0 220px;
+  padding: 30px 0 0 5px;
+}
+
+#title_mid2 {
+  /*flex: 100 100;*/
+  flex: 0 0 100px;
+  padding: 16px 0 0 5px;
+}
+
+#title_right {
+  flex: 100 100;
+  margin:24px 0 0 0;
+  font-family:monospace;
+  font-size: 11px;
+}
+#sliders_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: top;
+  border: 1.5px solid;
+  border-radius: 3px;
+}
+
+</style>
+<div id="title_wrapper">
+  <div id="title_left"><img src="smargopolo_logo.png"></div>
+  <div id="title_mid">	  
+      <!-- Button Bar -->
+      Enable Calibration Tool:
+      <button onclick="setMode(0)" class="button" id="buttonMODE0">FEEDBACK OFF</button><br>
+      <button onclick="setMode(1)" class="button" id="buttonMODE1">FEEDBACK ACTIVE</button><br>
+      <!-- button onclick="setMode(3)">MODE: 6 GO HOME</button><br -->
+      <!-- button onclick="setMode(8)">MODE: 8 SINEWAVE</button><br -->
+  </div>
+  <div id="title_right">
+	  <span>Serial: </span><span id="serial"></span><br>
+	  <span>Loop Counter: </span><span id="seq"></span><br>
+	  <span>Readback X : </span><span id="q1"></span><br>
+	  <span>Readback Y : </span><span id="q2"></span><br>
+	  <span>Readback Z : </span><span id="q3"></span><br>
+      
+  </div>
+</div>
+
+<script>
+    //var SERVERNAME = "smargopolo:3030";
+    var SERVERNAME = window.location.hostname+":3030";
+
+    function setMode(mode) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/enableCAL?enableCAL="+mode; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+</script>
+<br>
+<div id="sliders_wrapper">
+<input type="range" min="-2" max="2" value="0" step="0.001" class="slider_rbv" id="X_slider_rbv" disabled>
+<input type="range" min="-2" max="2" value="0" step="0.001" class="slider_rbv" id="Y_slider_rbv" disabled>
+<input type="range" min="-2" max="2" value="0" step="0.001" class="slider_rbv" id="Z_slider_rbv" disabled>
+</div>
+<br>
+<br>
+<strong>moveCAL</strong> (only works when feedback is off):
+<br>
+<button onclick="moveCH0(-1)"     class="nudgebutton">ch0: -1000steps</button>
+<button onclick="moveCH0(-0.1)"   class="nudgebutton">ch0: -100steps</button>
+<button onclick="moveCH0(-0.01)"  class="nudgebutton">ch0: -10steps</button>
+<button onclick="moveCH0(+0.01)"  class="nudgebutton">ch0: +10steps</button>
+<button onclick="moveCH0(+0.1)"   class="nudgebutton">ch0: +100steps</button>
+<button onclick="moveCH0(+1)"     class="nudgebutton">ch0: +1000steps</button><br>
+
+<button onclick="moveCH1(-1)"     class="nudgebutton">ch1: -1000steps</button>
+<button onclick="moveCH1(-0.1)"   class="nudgebutton">ch1: -100steps</button>
+<button onclick="moveCH1(-0.01)"  class="nudgebutton">ch1: -10steps</button>
+<button onclick="moveCH1(+0.01)"  class="nudgebutton">ch1: +10steps</button>
+<button onclick="moveCH1(+0.1)"   class="nudgebutton">ch1: +100steps</button>
+<button onclick="moveCH1(+1)"     class="nudgebutton">ch1: +1000steps</button><br>
+
+<button onclick="moveCH2(-1)"     class="nudgebutton">ch2: -1000steps</button>
+<button onclick="moveCH2(-0.1)"   class="nudgebutton">ch2: -100steps</button>
+<button onclick="moveCH2(-0.01)"  class="nudgebutton">ch2: -10steps</button>
+<button onclick="moveCH2(+0.01)"  class="nudgebutton">ch2: +10steps</button>
+<button onclick="moveCH2(+0.1)"   class="nudgebutton">ch2: +100steps</button>
+<button onclick="moveCH2(+1)"     class="nudgebutton">ch2: +1000steps</button><br>
+<script>
+    function moveCH0(amount) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/moveCAL?ch0="+amount; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+    function moveCH1(amount) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/moveCAL?ch1="+amount; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+    function moveCH2(amount) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/moveCAL?ch2="+amount; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+</script>
+<br>
+<br>
+<br>
+
+
+
+
+<!-- readbackCAL JSON Display -->
+<span>State (/readbackCAL):</span><span id="readbackCAL_JSON" style="font-family:monospace"></span><br>
+
+<script>
+    var X_slider_rbv = document.getElementById("X_slider_rbv");
+    var Y_slider_rbv = document.getElementById("Y_slider_rbv");
+    var Z_slider_rbv = document.getElementById("Z_slider_rbv");
+    
+    var jsonfield_readbackCAL = document.getElementById("readbackCAL_JSON");
+    
+    var span_serial = document.getElementById("serial");
+    var span_seq = document.getElementById("seq");
+    var span_q1 = document.getElementById("q1");
+    var span_q2 = document.getElementById("q2");
+    var span_q3 = document.getElementById("q3");
+ 
+   //Function to grab JSON
+    var grabJSON = function(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+          var status = xhr.status;
+          if (status === 200) {
+            callback(null, xhr.response);
+          } else {
+            callback(status, xhr.response);
+          }
+        };
+        xhr.send();
+    };
+    //Function to continuously read JSON from SmarGon RESTapi and update page
+    var intervalSCSID = setInterval(function(){
+        grabJSON('http://'+SERVERNAME+'/readbackCAL',
+        function(err, data) {
+          if (err !== null) {
+            alert('Something went wrong: ' + err);
+          } else {
+            //Here we update the span:
+	        jsonfield_readbackCAL.innerHTML = "<pre>"+JSON.stringify(data,undefined,2)+"</pre>";
+    	    //console.log(JSON.stringify(data,undefined,2));
+    	    //console.log(data.SHX);
+            X_slider_rbv.value = data.x;
+            Y_slider_rbv.value = data.y;
+            Z_slider_rbv.value = data.z;
+        
+            span_serial.innerHTML = data.serial_number;
+	        span_seq.innerHTML = data.seq;
+	        span_q1.innerHTML = data.x.toFixed(4);
+	        span_q2.innerHTML = data.y.toFixed(4);
+	        span_q3.innerHTML = data.z.toFixed(4);
+          }
+        });
+    }, 200);
+
+</script>
+
+
+
+<!-- enableCAL JSON Display -->
+<span>State (/enableCAL):</span><span id="enableCAL_JSON" style="font-family:monospace"></span><br>
+
+<script>
+    var bMODE0 = document.getElementById("buttonMODE0");
+    var bMODE1 = document.getElementById("buttonMODE1");
+    
+    
+    var jsonfield_enableCAL = document.getElementById("enableCAL_JSON");
+    
+    //Function to continuously read JSON from SmarGon RESTapi and update page
+    var intervalID = setInterval(function(){
+        grabJSON('http://'+SERVERNAME+'/enableCAL',
+        function(err, data) {
+          if (err !== null) {
+            alert('Something went wrong: ' + err);
+          } else {
+            //Here we update the span:
+	    jsonfield_enableCAL.innerHTML = "<pre>"+JSON.stringify(data,undefined,2)+"</pre>";
+    	    //console.log(JSON.stringify(data,undefined,2));
+	    //var json = JSON.parse(data);
+    	    //console.log(data.mode);
+	    red_color =  "#FF0000";
+        green_color =  "#008000";
+        active_color = "#996633";
+	    if (data == 0) {
+	      bMODE0.style.backgroundColor=red_color;
+	      bMODE1.style.backgroundColor="";
+	    }
+	    if (data == 1) {
+	      bMODE0.style.backgroundColor="";
+	      bMODE1.style.backgroundColor=green_color;
+	    }
+	   
+	    //span_rosout.innerHTML = '"'+data.rosout.msg+'"';
+          }
+        });
+    }, 500);
+</script>
+
+<body>

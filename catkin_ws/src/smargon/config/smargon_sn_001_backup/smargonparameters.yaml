@@ -1,0 +1,135 @@
+#SmarGonMCS2 Configuration File in YAML format
+#This must be loaded in order for smargopolo to function
+#All lengths in [mm], angles in [deg]
+#Wayne Glettig 16.11.2021
+length: { 
+    l01: 50.500000,
+    l11: 16.500000,
+    l12: 16.500000,
+    l21: 16.500000,
+    l22: 16.500000,
+    l23: 13.500000,
+    l31: 11.500000,
+    l32: 28.500000,
+    l33: 11.500000,
+    l34: 28.500000,
+    l41: 76.500000,
+    l42: 25.500000,
+    l51: 10.000000,
+    l52: 2.500000,
+    l61: 64.422000,
+    l71: 5.000000,
+    l72: 17.670000,
+    l73: 5.200000,
+    l74: 10.719000000,
+    offsetQ1: 1.800000,
+    offsetQ2: -0.50000,
+    offsetQ3: 0.000000,
+    offsetQ4: -1.4000,
+    offsetQ5: 0.000000,
+    offsetQ6: 0.000000,
+}
+axis: {
+    SHX: {
+#Kalibrier PIN
+        start :  0.0,
+        limpos:  2.500,
+        limneg: -2.500,
+        vmax  : 10.000,
+        amax  : 10.000,
+    },
+    SHY: {
+#Kalibrier PIN
+        start :  0.0,
+        limpos:  2.500,
+        limneg: -2.500,
+        vmax  : 10.000,
+        amax  : 10.000,
+    },
+    SHZ: {
+#Kalibrier PIN
+        start : 18.00,
+        limpos: 25.000,
+        limneg: 10.000,
+        vmax  : 10.000,
+        amax  : 10.000,
+    },
+
+    OMEGA: {
+        start :     0.000,
+        limpos:  3600.000,
+        limneg: -3600.000,
+        vmax  :    10.000,
+        amax  :    10.000,
+    },
+    CHI: {
+        start :  0.000,
+        limpos: 40.000,
+        limneg:  0.000,
+        vmax  :  5.000,
+        amax  : 30.000,
+    },
+    PHI: {
+        start :     0.000,
+        limpos:  3600.000,
+        limneg: -3600.000,
+        vmax  :    40.000,
+        amax  :    40.000,
+    },
+
+    OX: {
+        start : -0.703,
+        limpos:  2.500,
+        limneg: -2.500,
+        vmax  : 1.00,
+        amax  : 1.00,
+    },
+    OY: {
+        start :  0.601,
+        limpos:  2.500,
+        limneg: -2.500,
+        vmax  : 1.00,
+        amax  : 1.00,
+    },
+    OZ: {
+        start : 190.000,
+        limpos: 200.000,
+        limneg: 180.000,
+        vmax  : 1.00,
+        amax  : 1.00,
+    },
+
+
+    q1: {
+        start :   0.000,
+        limpos:  10.000,
+        limneg: -10.000,
+    },
+    q2: {
+        start :   0.000,
+        limpos:  10.000,
+        limneg: -10.000,
+    },
+    q3: {
+        start :   0.000,
+        limpos:  10.000,
+        limneg: -10.000,
+    },
+    q4: {
+        start :   0.000,
+        limpos:  10.000,
+        limneg: -10.000,
+    },
+    q5: {
+        start :   0.000,
+        limpos:  10.000,
+        limneg: -10.000,
+    },
+    q6: {
+        start :   0.000,
+        limpos:  10.000,
+        limneg: -10.000,
+    },
+}
+default_active_correction: 1
+

@@ -1,0 +1,23 @@
+'To generate the cos/sin signals to transmit the OMEGA values to the LabJack,
+'the following AeroBasic code can be used:
+
+DVAR $OMEGA_U
+DVAR $ANGLE
+
+#include AeroBasic_Definitions.h
+#include include.pgm
+
+WHILE 1
+  CRITICAL END
+
+  CRITICAL START
+  $OMEGA_U = axisstatus(U, DATAITEM_PositionFeedback)
+  $ANGLE = $OMEGA_U%360   'modulo to get values 0-360 deg
+
+  'Generate COS SIN Signals:
+   $AO[0].X = 5*COS($ANGLE/180*3.14159265358979311599796346854418)
+   $AO[1].X = 5*SIN($ANGLE/180*3.14159265358979311599796346854418)
+WEND
+;
+M2
+END PROGRAM

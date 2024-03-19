@@ -1,0 +1,17 @@
+31.7.2019 Wayne Glettig
+
+Implements a simple linked list algorithm with the functions:
+  * Add Node
+  * Display whole List
+  * Remove First Node
+  * Remove Last Node
+
+---
+use:
+
+make
+
+./Test
+
+make clean  
+

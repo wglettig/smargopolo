@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.button {
+  width: 200px;
+  text-align: left;
+  background-color: #999999; /*Grey */
+  border: none;
+  color: white;
+  padding: 5px 5px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.buttonCorr {
+  width: 80px;
+  text-align: middle;
+  background-color: #999999; /*Grey */
+  border: none;
+  color: white;
+  padding: 5px 5px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.nudgebutton {
+  width: 100px;
+  text-align: left;
+  /*background-color: #999999; /*Grey */
+  border: 1px 
+  color: black;
+  padding: 5px 5px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  background: #999999; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  background: #996633;
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  background: #996633;
+  cursor: pointer; /* Cursor on hover */
+}
+
+
+.slider_rbv {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 10px; /* Specified height */
+  background: #FFFFFF; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider_rbv::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 10px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  background: #996633;
+}
+
+.slider_rbv::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 10px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  background: #996633;
+}
+</style>
+
+<script>
+    //var SERVERNAME = "smargopolo:3000";
+    var SERVERNAME = window.location.hostname+":3000";
+
+    function setMode(mode) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/mode?mode="+mode; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+    
+    function setCorrType(corr_type) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/corr_type?corr_type="+corr_type; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+</script>
+
+</head>
+
+
+
+<body>
+<style>
+#title_wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  border: 1.5px solid;
+  border-radius: 3px;
+}
+
+#title_left {
+  flex: 0 0 300px; 
+}
+
+#title_mid {
+  /*flex: 100 100;*/
+  flex: 0 0 220px;
+  padding: 16px 0 0 5px;
+}
+
+#title_mid2 {
+  /*flex: 100 100;*/
+  flex: 0 0 100px;
+  padding: 16px 0 0 5px;
+}
+
+#title_right {
+  flex: 100 100;
+  margin:14px 0 0 0;
+  font-family:monospace;
+  font-size: 11px;
+}
+
+</style>
+<div id="title_wrapper">
+  <div id="title_left"><img src="smargopolo_logo.png"></div>
+  <div id="title_mid">	  
+      <!-- Button Bar -->
+      <button onclick="setMode(0)" class="button" id="buttonMODE0">MODE 0: UNINITIALIZED</button><br>
+      <button onclick="setMode(1)" class="button" id="buttonMODE1">MODE 1: INITIALIZING...</button><br>
+      <button onclick="setMode(2)" class="button" id="buttonMODE2">MODE 2: READY</button><br>
+      <button onclick="setMode(3)" class="button" id="buttonMODE3">MODE 3: SIMULATION</button><br>
+      <!-- button onclick="setMode(3)">MODE: 6 GO HOME</button><br -->
+      <!-- button onclick="setMode(8)">MODE: 8 SINEWAVE</button><br -->
+      <button onclick="" class="button" id="buttonMODE99">MODE 99: ERROR</button><br>
+  </div>
+  <div id="title_mid2">	  
+      <!-- Button Bar -->
+      <button onclick="setCorrType(0)" class="buttonCorr" id="buttonCORR0">corr_type 0</button><br>
+      <button onclick="setCorrType(1)" class="buttonCorr" id="buttonCORR1">corr_type 1</button><br>
+      <button onclick="setCorrType(2)" class="buttonCorr" id="buttonCORR2">corr_type 2</button><br>
+  </div>
+  <div id="title_right">
+	  <span>Serial: </span><span id="serial"></span><br>
+	  <span>Loop Counter: </span><span id="seq"></span><br>
+	  <span>State q1 : </span><span id="q1"></span><br>
+	  <span>State q2 : </span><span id="q2"></span><br>
+	  <span>State q3 : </span><span id="q3"></span><br>
+	  <span>State q4 : </span><span id="q4"></span><br>
+	  <span>State q5 : </span><span id="q5"></span><br>
+	  <span>rosout : </span><span id="rosout"></span><br>
+      
+  </div>
+</div>
+
+<br>
+
+
+<!-- SHX Slider -->
+<div class="slidecontainer">
+<strong>SHX:</strong> 
+<span>Target:</span> <span id="SHX_value" style="font-weight:bold;color:red"></span>
+    <input type="range" min="-2" max="2" value="0" step="0.1" class="slider" id="SHX_slider">
+    <input type="range" min="-2" max="2" value="0" step="0.1" class="slider_rbv" id="SHX_slider_rbv" disabled>
+</div>
+<script>
+    var SHX_slider = document.getElementById("SHX_slider");
+    var SHX_output = document.getElementById("SHX_value");
+    SHX_output.innerHTML = SHX_slider.value; // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    SHX_slider.oninput = function() {
+        SHX_output.innerHTML = SHX_slider.value;
+        let xhr = new XMLHttpRequest(); 
+        let url = "http://"+SERVERNAME+"/targetSCS?SHX="+SHX_slider.value; 
+        xhr.open("PUT", url); 
+        xhr.send(); 
+    }
+</script>
+
+<!-- SHY Slider -->
+<div class="slidecontainer">
+    <strong>SHY:</strong>
+    <span>Target:</span> <span id="SHY_value" style="font-weight:bold;color:red"></span>
+    <input type="range" min="-2" max="2" value="0" step="0.1" class="slider" id="SHY_slider">
+    <input type="range" min="-2" max="2" value="0" step="0.1" class="slider_rbv" id="SHY_slider_rbv" disabled>
+</div>
+<script>
+    var SHY_slider = document.getElementById("SHY_slider");
+    var SHY_output = document.getElementById("SHY_value");
+    SHY_output.innerHTML = SHY_slider.value; // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    SHY_slider.oninput = function() {
+        SHY_output.innerHTML = SHY_slider.value;
+        let xhr = new XMLHttpRequest(); 
+        let url = "http://"+SERVERNAME+"/targetSCS?SHY="+SHY_slider.value; 
+        xhr.open("PUT", url); 
+        xhr.send(); 
+    }
+</script>
+<br>
+
+<!-- SHZ Slider -->
+<div class="slidecontainer">
+    <strong>SHZ:</strong>
+    <span>Target:</span> <span id="SHZ_value" style="font-weight:bold;color:red"></span>
+    <input type="range" min="10" max="25" value="20" step="0.1" class="slider" id="SHZ_slider">
+    <input type="range" min="10" max="25" value="20" step="0.1" class="slider_rbv" id="SHZ_slider_rbv" disabled>
+</div>
+<script>
+    var SHZ_slider = document.getElementById("SHZ_slider");
+    var SHZ_output = document.getElementById("SHZ_value");
+    SHZ_output.innerHTML = SHZ_slider.value; // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    SHZ_slider.oninput = function() {
+        SHZ_output.innerHTML = SHZ_slider.value;
+        let xhr = new XMLHttpRequest(); 
+        let url = "http://"+SERVERNAME+"/targetSCS?SHZ="+SHZ_slider.value; 
+        xhr.open("PUT", url); 
+        xhr.send(); 
+    }
+</script>
+<br>
+
+<!-- CHI Slider -->
+<div class="slidecontainer">
+    <strong>CHI:</strong>
+    <span>Target:</span> <span id="CHI_value" style="font-weight:bold;color:red"></span>
+    <input type="range" min="0" max="90" value="0" class="slider" id="CHI_slider">
+    <input type="range" min="0" max="90" value="0" class="slider_rbv" id="CHI_slider_rbv" disabled>
+</div>
+<script>
+    var CHI_slider = document.getElementById("CHI_slider");
+    var CHI_output = document.getElementById("CHI_value");
+    CHI_output.innerHTML = CHI_slider.value; // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    CHI_slider.oninput = function() {
+        CHI_output.innerHTML = CHI_slider.value;
+        let xhr = new XMLHttpRequest(); 
+        let url = "http://"+SERVERNAME+"/targetSCS?CHI="+CHI_slider.value; 
+        xhr.open("PUT", url); 
+        xhr.send(); 
+    }
+</script>
+<br>
+
+
+<!-- PHI Slider -->
+<div class="slidecontainer">
+    <strong>PHI:</strong>
+    <span>Target:</span> <span id="PHI_value" style="font-weight:bold;color:red"></span>
+    <input type="range" min="-180" max="180" value="0" class="slider" id="PHI_slider">
+    <input type="range" min="-180" max="180" value="0" class="slider_rbv" id="PHI_slider_rbv" disabled>
+</div>
+<script>
+    var PHI_slider = document.getElementById("PHI_slider");
+    var PHI_output = document.getElementById("PHI_value");
+    PHI_output.innerHTML = PHI_slider.value; // Display the default slider value
+    // Update the current slider value (each time you drag the slider handle)
+    PHI_slider.oninput = function() {
+        PHI_output.innerHTML = PHI_slider.value;
+        let xhr = new XMLHttpRequest(); 
+        let url = "http://"+SERVERNAME+"/targetSCS?PHI="+PHI_slider.value; 
+        xhr.open("PUT", url); 
+        xhr.send(); 
+    }
+</script>
+<br>
+
+<!-- OX OY OZ Sliders -->
+<div class="slidecontainer">
+    <strong>OX:</strong>
+    <span>Target:</span> <span id="OX_value" style="font-weight:bold;color:red"></span>
+    <input type="range" min="-5" max="5" value="0" step="0.1" class="slider" id="OX_slider">
+    <input type="range" min="-5" max="5" value="0" step="0.1" class="slider_rbv" id="OX_slider_rbv" disabled>
+</div>
+<div class="slidecontainer">
+    <strong>OY:</strong>
+    <span>Target:</span> <span id="OY_value" style="font-weight:bold;color:red"></span>
+    <input type="range" min="-5" max="5" value="0" step="0.1" class="slider" id="OY_slider">
+    <input type="range" min="-5" max="5" value="0" step="0.1" class="slider_rbv" id="OY_slider_rbv" disabled>
+</div>
+<div class="slidecontainer">
+    <strong>OZ:</strong>
+    <span>Target:</span> <span id="OZ_value" style="font-weight:bold;color:red"></span>
+    <input type="range" min="185" max="195" value="190" step="0.1" class="slider" id="OZ_slider">
+    <input type="range" min="185" max="195" value="190" step="0.1" class="slider_rbv" id="OZ_slider_rbv" disabled>
+</div>
+<script>
+
+    var OX_slider = document.getElementById("OX_slider");
+    var OX_output = document.getElementById("OX_value");
+    OX_slider.oninput = function() {setTarget("OX",OX_slider,OX_value);}
+    var OY_slider = document.getElementById("OY_slider");
+    var OY_output = document.getElementById("OY_value");
+    OY_slider.oninput = function() {setTarget("OY",OY_slider,OY_value);}
+    var OZ_slider = document.getElementById("OZ_slider");
+    var OZ_output = document.getElementById("OZ_value");
+    OZ_slider.oninput = function() {setTarget("OZ",OZ_slider,OZ_value);}
+    
+    // Update the current slider value (each time you drag the slider handle)
+    function setTarget(name,sliderId,labelId) {
+        labelId.innerHTML = sliderId.value;
+        let xhr = new XMLHttpRequest(); 
+        let url = "http://"+SERVERNAME+"/targetSCS?"+name+"="+sliderId.value; 
+        xhr.open("PUT", url); 
+        xhr.send(); 
+    }
+
+</script>
+
+<!-- OMEGA readback slider -->
+<div class="slidecontainer">
+    <strong>OMEGA:</strong>
+    <span>Readback:</span> <span id="OMEGA_value" style="font-weight:bold;color:red"></span>
+    <input type="range" min="0" max="360" value="0" step="1" class="slider_rbv" id="OMEGA_slider_rbv" disabled>
+</div>
+<script>
+    var OMEGA_output = document.getElementById("OMEGA_value");
+</script>
+<br>
+
+
+
+
+<strong>Nudge SH Vector:</strong>
+<br>
+<button onclick="nudgeBX(-1)"     class="nudgebutton">nudgeBX: -1mm</button>
+<button onclick="nudgeBX(-0.1)"   class="nudgebutton">nudgeBX: -0.1mm</button>
+<button onclick="nudgeBX(-0.01)"  class="nudgebutton">nudgeBX: -0.01mm</button>
+<button onclick="nudgeBX(-0.001)" class="nudgebutton">nudgeBX: -0.001mm</button>
+<button onclick="nudgeBX(+0.001)" class="nudgebutton">nudgeBX: +0.001mm</button>
+<button onclick="nudgeBX(+0.01)"  class="nudgebutton">nudgeBX: +0.01mm</button>
+<button onclick="nudgeBX(+0.1)"   class="nudgebutton">nudgeBX: +0.1mm</button>
+<button onclick="nudgeBX(+1)"     class="nudgebutton">nudgeBX: +1mm</button><br>
+
+<button onclick="nudgeBY(-1)"     class="nudgebutton">nudgeBY: -1mm</button>
+<button onclick="nudgeBY(-0.1)"   class="nudgebutton">nudgeBY: -0.1mm</button>
+<button onclick="nudgeBY(-0.01)"  class="nudgebutton">nudgeBY: -0.01mm</button>
+<button onclick="nudgeBY(-0.001)" class="nudgebutton">nudgeBY: -0.001mm</button>
+<button onclick="nudgeBY(+0.001)" class="nudgebutton">nudgeBY: +0.001mm</button>
+<button onclick="nudgeBY(+0.01)"  class="nudgebutton">nudgeBY: +0.01mm</button>
+<button onclick="nudgeBY(+0.1)"   class="nudgebutton">nudgeBY: +0.1mm</button>
+<button onclick="nudgeBY(+1)"     class="nudgebutton">nudgeBY: +1mm</button><br>
+
+<button onclick="nudgeBZ(-1)"     class="nudgebutton">nudgeBZ: -1mm</button>
+<button onclick="nudgeBZ(-0.1)"   class="nudgebutton">nudgeBZ: -0.1mm</button>
+<button onclick="nudgeBZ(-0.01)"  class="nudgebutton">nudgeBZ: -0.01mm</button>
+<button onclick="nudgeBZ(-0.001)" class="nudgebutton">nudgeBZ: -0.001mm</button>
+<button onclick="nudgeBZ(+0.001)" class="nudgebutton">nudgeBZ: +0.001mm</button>
+<button onclick="nudgeBZ(+0.01)"  class="nudgebutton">nudgeBZ: +0.01mm</button>
+<button onclick="nudgeBZ(+0.1)"   class="nudgebutton">nudgeBZ: +0.1mm</button>
+<button onclick="nudgeBZ(+1)"     class="nudgebutton">nudgeBZ: +1mm</button><br>
+<script>
+    function nudgeBX(amount) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/nudgeBCS?BX="+amount; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+    function nudgeBY(amount) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/nudgeBCS?BY="+amount; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+    function nudgeBZ(amount) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/nudgeBCS?BZ="+amount; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+</script>
+<br>
+
+<strong>Nudge O Vector:</strong>
+<br>
+<button onclick="nudgeOBX(-1)"     class="nudgebutton">nudgeOBX: -1mm</button>
+<button onclick="nudgeOBX(-0.1)"   class="nudgebutton">nudgeOBX: -0.1mm</button>
+<button onclick="nudgeOBX(-0.01)"  class="nudgebutton">nudgeOBX: -0.01mm</button>
+<button onclick="nudgeOBX(-0.001)" class="nudgebutton">nudgeOBX: -0.001mm</button>
+<button onclick="nudgeOBX(+0.001)" class="nudgebutton">nudgeOBX: +0.001mm</button>
+<button onclick="nudgeOBX(+0.01)"  class="nudgebutton">nudgeOBX: +0.01mm</button>
+<button onclick="nudgeOBX(+0.1)"   class="nudgebutton">nudgeOBX: +0.1mm</button>
+<button onclick="nudgeOBX(+1)"     class="nudgebutton">nudgeOBX: +1mm</button><br>
+
+<button onclick="nudgeOBY(-1)"     class="nudgebutton">nudgeOBY: -1mm</button>
+<button onclick="nudgeOBY(-0.1)"   class="nudgebutton">nudgeOBY: -0.1mm</button>
+<button onclick="nudgeOBY(-0.01)"  class="nudgebutton">nudgeOBY: -0.01mm</button>
+<button onclick="nudgeOBY(-0.001)" class="nudgebutton">nudgeOBY: -0.001mm</button>
+<button onclick="nudgeOBY(+0.001)" class="nudgebutton">nudgeOBY: +0.001mm</button>
+<button onclick="nudgeOBY(+0.01)"  class="nudgebutton">nudgeOBY: +0.01mm</button>
+<button onclick="nudgeOBY(+0.1)"   class="nudgebutton">nudgeOBY: +0.1mm</button>
+<button onclick="nudgeOBY(+1)"     class="nudgebutton">nudgeOBY: +1mm</button><br>
+
+<button onclick="nudgeOBZ(-1)"     class="nudgebutton">nudgeOBZ: -1mm</button>
+<button onclick="nudgeOBZ(-0.1)"   class="nudgebutton">nudgeOBZ: -0.1mm</button>
+<button onclick="nudgeOBZ(-0.01)"  class="nudgebutton">nudgeOBZ: -0.01mm</button>
+<button onclick="nudgeOBZ(-0.001)" class="nudgebutton">nudgeOBZ: -0.001mm</button>
+<button onclick="nudgeOBZ(+0.001)" class="nudgebutton">nudgeOBZ: +0.001mm</button>
+<button onclick="nudgeOBZ(+0.01)"  class="nudgebutton">nudgeOBZ: +0.01mm</button>
+<button onclick="nudgeOBZ(+0.1)"   class="nudgebutton">nudgeOBZ: +0.1mm</button>
+<button onclick="nudgeOBZ(+1)"     class="nudgebutton">nudgeOBZ: +1mm</button><br>
+<script>
+    function nudgeOBX(amount) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/nudgeOBCS?BX="+amount; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+    function nudgeOBY(amount) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/nudgeOBCS?BY="+amount; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+    function nudgeOBZ(amount) {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/nudgeOBCS?BZ="+amount; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+</script>
+<br>
+
+
+
+<br>
+<button onclick="setPoseHome()">SET POSE: HOME</button>
+<button onclick="setPose45Deg()">SET POSE: CHI45</button>
+<script>
+    function setPoseHome() {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/targetSCS?SHX=0&SHY=0&SHZ=18&OMEGA=0&CHI=0&PHI=0&OX=0&OY=0&OZ=190"; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+    function setPose45Deg() {
+       let xhr = new XMLHttpRequest(); 
+       let url = "http://"+SERVERNAME+"/targetSCS?SHX=0&SHY=0&SHZ=20&OMEGA=0&CHI=45&PHI=0&OX=0&OY=0&OZ=190"; 
+       xhr.open("PUT", url); 
+       xhr.send(); 
+    }
+</script>
+<br>
+
+<br>
+<br>
+
+
+
+
+
+
+<!-- State SCS JSON Display -->
+<span>State (/readbackSCS):</span><span id="stateSCS_JSON" style="font-family:monospace"></span><br>
+
+<script>
+    var SHX_slider_rbv = document.getElementById("SHX_slider_rbv");
+    var SHY_slider_rbv = document.getElementById("SHY_slider_rbv");
+    var SHZ_slider_rbv = document.getElementById("SHZ_slider_rbv");
+    var CHI_slider_rbv = document.getElementById("CHI_slider_rbv");
+    var PHI_slider_rbv = document.getElementById("PHI_slider_rbv");
+    var OX_slider_rbv = document.getElementById("OX_slider_rbv");
+    var OY_slider_rbv = document.getElementById("OY_slider_rbv");
+    var OZ_slider_rbv = document.getElementById("OZ_slider_rbv");
+    var OMEGA_slider_rbv = document.getElementById("OMEGA_slider_rbv");
+    
+    var jsonSCSfield = document.getElementById("stateSCS_JSON");
+    
+    //Function to grab JSON
+    var grabJSON = function(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = function() {
+          var status = xhr.status;
+          if (status === 200) {
+            callback(null, xhr.response);
+          } else {
+            callback(status, xhr.response);
+          }
+        };
+        xhr.send();
+    };
+    //Function to continuously read JSON from SmarGon RESTapi and update page
+    var intervalSCSID = setInterval(function(){
+        grabJSON('http://'+SERVERNAME+'/readbackSCS',
+        function(err, data) {
+          if (err !== null) {
+            alert('Something went wrong: ' + err);
+          } else {
+            //Here we update the span:
+	    jsonSCSfield.innerHTML = "<pre>"+JSON.stringify(data,undefined,2)+"</pre>";
+    	    //console.log(JSON.stringify(data,undefined,2));
+    	    //console.log(data.SHX);
+            SHX_slider_rbv.value = data.SHX;
+            SHY_slider_rbv.value = data.SHY;
+            SHZ_slider_rbv.value = data.SHZ;
+            CHI_slider_rbv.value = data.CHI;
+            PHI_slider_rbv.value = data.PHI;
+            OX_slider_rbv.value = data.OX;
+            OY_slider_rbv.value = data.OY;
+            OZ_slider_rbv.value = data.OZ;
+            OMEGA_slider_rbv.value = data.OMEGA;
+            OMEGA_output.innerHTML = data.OMEGA.toFixed(2);
+          }
+        });
+    }, 200);
+
+</script>
+
+
+
+<!-- StateMCS JSON Display -->
+<span>State (/readbackMCS):</span><span id="state_JSON" style="font-family:monospace"></span><br>
+
+<script>
+    var bMODE0 = document.getElementById("buttonMODE0");
+    var bMODE1 = document.getElementById("buttonMODE1");
+    var bMODE2 = document.getElementById("buttonMODE2");
+    var bMODE3 = document.getElementById("buttonMODE3");
+    var bMODE99 = document.getElementById("buttonMODE99");
+    
+    var bCORR0 = document.getElementById("buttonCORR0");
+    var bCORR1 = document.getElementById("buttonCORR1");
+    var bCORR2 = document.getElementById("buttonCORR2");
+    
+    var span_serial = document.getElementById("serial");
+    var span_seq = document.getElementById("seq");
+    var span_q1 = document.getElementById("q1");
+    var span_q2 = document.getElementById("q2");
+    var span_q3 = document.getElementById("q3");
+    var span_q4 = document.getElementById("q4");
+    var span_q5 = document.getElementById("q5");
+    var span_rosout = document.getElementById("rosout");
+    
+    var jsonfield = document.getElementById("state_JSON");
+    
+    //Function to continuously read JSON from SmarGon RESTapi and update page
+    var intervalID = setInterval(function(){
+        grabJSON('http://'+SERVERNAME+'/readbackMCS',
+        function(err, data) {
+          if (err !== null) {
+            alert('Something went wrong: ' + err);
+          } else {
+            //Here we update the span:
+	    jsonfield.innerHTML = "<pre>"+JSON.stringify(data,undefined,2)+"</pre>";
+    	    //console.log(JSON.stringify(data,undefined,2));
+	    //var json = JSON.parse(data);
+    	    //console.log(data.mode);
+	    active_color = "#996633";
+	    if (data.mode == 0) {
+	      bMODE0.style.backgroundColor=active_color;
+	      bMODE1.style.backgroundColor="";
+	      bMODE2.style.backgroundColor="";
+	      bMODE3.style.backgroundColor="";
+	      bMODE99.style.backgroundColor="";
+	    }
+	    if (data.mode == 1) {
+	      bMODE0.style.backgroundColor="";
+	      bMODE1.style.backgroundColor=active_color;
+	      bMODE2.style.backgroundColor="";
+	      bMODE3.style.backgroundColor="";
+	      bMODE99.style.backgroundColor="";
+	    }
+	    if (data.mode == 2) {
+	      bMODE0.style.backgroundColor="";
+	      bMODE1.style.backgroundColor="";
+	      bMODE2.style.backgroundColor=active_color;
+	      bMODE3.style.backgroundColor="";
+	      bMODE99.style.backgroundColor="";
+	    }
+	    if (data.mode == 3) {
+	      bMODE0.style.backgroundColor="";
+	      bMODE1.style.backgroundColor="";
+	      bMODE2.style.backgroundColor="";
+	      bMODE3.style.backgroundColor=active_color;
+	      bMODE99.style.backgroundColor="";
+	    }
+	    if (data.mode == 99) {
+	      bMODE0.style.backgroundColor="";
+	      bMODE1.style.backgroundColor="";
+	      bMODE2.style.backgroundColor="";
+	      bMODE99.style.backgroundColor=active_color;
+	    }
+	    
+	    if (data.corr_type == 0) {
+	      bCORR0.style.backgroundColor=active_color;
+	      bCORR1.style.backgroundColor="";
+	      bCORR2.style.backgroundColor="";
+	    }
+	    if (data.corr_type == 1) {
+	      bCORR0.style.backgroundColor="";
+	      bCORR1.style.backgroundColor=active_color;
+	      bCORR2.style.backgroundColor="";
+	    }
+	    if (data.corr_type == 2) {
+	      bCORR0.style.backgroundColor="";
+	      bCORR1.style.backgroundColor="";
+	      bCORR2.style.backgroundColor=active_color;
+	    }
+
+	    span_serial.innerHTML = data.serial_number;
+	    span_seq.innerHTML = data.seq;
+	    span_q1.innerHTML = data.state.q1;
+	    span_q2.innerHTML = data.state.q2;
+	    span_q3.innerHTML = data.state.q3;
+	    span_q4.innerHTML = data.state.q4;
+	    span_q5.innerHTML = data.state.q5;
+	    span_rosout.innerHTML = '"'+data.rosout.msg+'"';
+          }
+        });
+    }, 500);
+</script>
+
+<!-- targetSCS JSON Display -->
+<span>Target (/targetSCS):</span><span id="target_JSON" style="font-family:monospace"></span><br>
+
+<script>
+    var targetJsonField = document.getElementById("target_JSON");
+
+
+    //Function to continuously read JSON from SmarGon RESTapi and update page
+    var intervalID = setInterval(function(){
+        grabJSON('http://'+SERVERNAME+'/targetSCS',
+        function(err, data) {
+          if (err !== null) {
+            alert('Something went wrong: ' + err);
+          } else {
+            //Here we update the span:
+	    targetJsonField.innerHTML = "<pre>"+JSON.stringify(data,undefined,2)+"</pre>";
+            //Here we update the slider positions and output number:
+	    SHX_slider.value = data.SHX;
+            SHX_output.innerHTML = data.SHX;
+	    SHY_slider.value = data.SHY;
+            SHY_output.innerHTML = data.SHY;
+	    SHZ_slider.value = data.SHZ;
+            SHZ_output.innerHTML = data.SHZ;
+	    CHI_slider.value = data.CHI;
+            CHI_output.innerHTML = data.CHI;
+	    PHI_slider.value = data.PHI;
+            PHI_output.innerHTML = data.PHI;
+	    OX_slider.value = data.OX;
+            OX_output.innerHTML = data.OX;
+	    OY_slider.value = data.OY;
+            OY_output.innerHTML = data.OY;
+	    OZ_slider.value = data.OZ;
+            OZ_output.innerHTML = data.OZ;
+          }
+        });
+    }, 500);
+
+</script>
+<body>

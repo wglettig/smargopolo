@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE Interface SYSTEM "xmi1.dtd">
+<Interface>
+    <Inputs>
+        <In name="ENABLED" noe="1"/>
+        <In name="SHx" noe="1"/>
+        <In name="SHy" noe="1"/>
+        <In name="SHz" noe="1"/>
+        <In name="CHI" noe="1"/>
+        <In name="PHI" noe="1"/>
+        <In name="OMEGA" noe="1"/>
+        <In name="Ox" noe="1"/>
+        <In name="Oy" noe="1"/>
+        <In name="Oz" noe="1"/>
+    </Inputs>
+    <Outputs>
+        <Out name="s1" noe="1" showable="false"/>
+        <Out name="s2" noe="1" showable="false"/>
+        <Out name="s3" noe="1" showable="false"/>
+        <Out name="s4" noe="1" showable="false"/>
+        <Out name="phimotor" noe="1" showable="false"/>
+        <Out name="omegamotor" noe="1" showable="false"/>
+    </Outputs>
+    <Extras noe="1"/>
+    <Parameters>
+        <Param name="a5" noe="1,1"/>
+        <Param name="l11" noe="1,1"/>
+        <Param name="l12" noe="1,1"/>
+        <Param name="l13" noe="1,1"/>
+        <Param name="l14" noe="1,1"/>
+        <Param name="l24" noe="1,1"/>
+        <Param name="l31" noe="1,1"/>
+        <Param name="l34" noe="1,1"/>
+        <Param name="l35" noe="1,1"/>
+        <Param name="l41" noe="1,1"/>
+        <Param name="l42" noe="1,1"/>
+        <Param name="l43" noe="1,1"/>
+        <Param name="l44" noe="1,1"/>
+        <Param name="l51" noe="1,1"/>
+        <Param name="l52" noe="1,1"/>
+        <Param name="l53" noe="1,1"/>
+        <Param name="l54" noe="1,1"/>
+        <Param name="l55" noe="1,1"/>
+        <Param name="l56" noe="1,1"/>
+        <Param name="offsetR1" noe="1,1"/>
+        <Param name="offsetR2" noe="1,1"/>
+        <Param name="offsetR3" noe="1,1"/>
+        <Param name="offsetR4" noe="1,1"/>
+        <Param name="offsetS1" noe="1,1"/>
+        <Param name="offsetS2" noe="1,1"/>
+        <Param name="offsetS3" noe="1,1"/>
+        <Param name="offsetS4" noe="1,1"/>
+    </Parameters>
+</Interface>

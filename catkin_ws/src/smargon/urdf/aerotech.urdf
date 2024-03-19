@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<robot name="Aeroteech">
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <material name="grey">
+    <color rgba="0.1 0.1 0.1 1"/>
+  </material>
+
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://smargon/meshes/aerotech/00_BASEbin.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="1.570796 0 1.570796" xyz="0 0 0" />
+    </visual>
+  </link>
+
+  <link name="xtrans">
+    <visual>
+      <geometry>
+        <mesh filename="package://smargon/meshes/aerotech/01_XTRANSbin.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="1.570796 0 1.570796" xyz="0 0 0" />
+    </visual>
+  </link>
+
+<joint name="x-translation" type="prismatic">
+  <axis xyz="1 0 0"/>
+  <limit effort="1000.0" lower="0.0" upper="0.198" velocity="0.5"/>
+  <parent link="base_link"/>
+  <child link="xtrans"/>
+  <origin xyz="-0.17557 0 0" />
+</joint>
+
+  <link name="ztrans">
+    <visual>
+      <geometry>
+        <mesh filename="package://smargon/meshes/aerotech/02_ZTRANSbin.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="1.570796 0 1.570796" xyz="0 0 0" />
+    </visual>
+  </link>
+
+<joint name="z-translation" type="prismatic">
+  <axis xyz="0 -1 0"/>
+  <limit effort="1000.0" lower="0.0" upper="0.1" velocity="0.5"/>
+  <parent link="xtrans"/>
+  <child link="ztrans"/>
+  <origin xyz="0 0.049333 0" />
+</joint>
+
+  <link name="ytrans">
+    <visual>
+      <geometry>
+        <mesh filename="package://smargon/meshes/aerotech/03_YTRANSbin.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="1.570796 0 1.570796" xyz="0 0 0" />
+    </visual>
+  </link>
+
+<joint name="y-translation" type="prismatic">
+  <axis xyz="0 0 1"/>
+  <limit effort="1000.0" lower="0.0" upper="0.05" velocity="0.5"/>
+   <parent link="ztrans"/>
+  <child link="ytrans"/>
+  <origin xyz="0 0 0" />
+</joint>
+
+  <link name="omega-rotation">
+    <visual>
+      <geometry>
+        <mesh filename="package://smargon/meshes/aerotech/04_OMEGAROTbin.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="1.570796 0 1.570796" xyz="0 0 -0.3561" />
+    </visual>
+  </link>
+
+<joint name="omega" type="revolute">
+  <axis xyz="1 0 0"/>
+  <limit effort="1000.0" lower="-3.1416" upper="3.1416" velocity="0.5"/>
+   <parent link="ytrans"/>
+  <child link="omega-rotation"/>
+  <origin xyz="0 0 0.3561" />
+</joint>
+
+
+
+
+</robot>

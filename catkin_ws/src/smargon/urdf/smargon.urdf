@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<robot name="SmarGon">
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <material name="grey">
+    <color rgba="0.1 0.1 0.1 1"/>
+  </material>
+
+
+  <link name="base_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+    </visual>
+  </link>
+
+  <link name="orientated_base_link">
+    <visual>
+      <geometry>
+        <!--<cylinder length="0.03" radius="0.10"/>-->
+        <mesh filename="package://smargon_support/meshes/visual/BASE_SUPPORT.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 -1.5708 0" xyz="0 0 0" />
+    </visual>
+  </link>
+  
+<joint name="reorient_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="orientated_base_link"/>
+  <origin rpy="0 -1.5708 0" xyz="0 0 0" />
+</joint>
+
+  <link name="base_cylinder">
+    <visual>
+      <geometry>
+        <!--<cylinder length="0.15" radius="0.055"/>-->
+        <mesh filename="package://smargon_support/meshes/visual/BLUE.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 -1.5708 0" xyz="0 0 0" />
+    </visual>
+  </link>
+
+<joint name="axisomega" type="continuous">
+  <axis xyz="0 0 1"/>
+  <parent link="orientated_base_link"/>
+  <child link="base_cylinder"/>
+  <origin xyz="0 0 0.0485" />
+</joint>
+
+  <link name="betweenxy_plate">
+    <visual>
+      <geometry>
+        <!--<box size="0.06 0.04 0.015"/>-->
+        <mesh filename="package://smargon_support/meshes/visual/GREEN.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 -1.5708 0" xyz="0 0 0" />
+    </visual>
+  </link>
+
+<joint name="axis1" type="prismatic">
+  <axis xyz="1 0 0"/>
+  <limit effort="1000.0" lower="-0.02" upper="0.02" velocity="0.5"/>
+  <parent link="base_cylinder"/>
+  <child link="betweenxy_plate"/>
+  <origin xyz="0 0 0.05" />
+</joint>
+
+  <link name="t_plate">
+    <visual>
+      <geometry>
+        <!--<box size="0.015 0.024 0.075"/>-->
+        <mesh filename="package://smargon_support/meshes/visual/RED.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 -1.5708 0" xyz="0 0 0" />
+    </visual>
+  </link>
+
+<joint name="axis2" type="prismatic">
+  <axis xyz="0 1 0"/>
+  <limit effort="1000.0" lower="-0.01" upper="0.01" velocity="0.5"/>
+   <parent link="betweenxy_plate"/>
+  <child link="t_plate"/>
+  <origin xyz="0 0 0.0135" />
+</joint>
+
+  <link name="swingholder">
+    <visual>
+      <geometry>
+        <!--<box size="0.02 0.024 0.06"/>-->
+        <mesh filename="package://smargon_support/meshes/visual/ORANGE.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 -1.5708 0" xyz="0 0 0" />
+    </visual>
+  </link>
+
+<joint name="axis3" type="prismatic">
+  <axis xyz="0 0 1"/>
+  <limit effort="1000.0" lower="-0.02" upper="0.02" velocity="0.5"/>
+   <parent link="t_plate"/>
+  <child link="swingholder"/>
+  <origin xyz="0.009 0 0.031" />
+</joint>
+
+  <link name="swing">
+    <visual>
+      <geometry>
+        <!--<cylinder length="0.012" radius="0.01"/>-->
+        <mesh filename="package://smargon_support/meshes/visual/YELLOW.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 -2.3562 0" xyz="0 0 0" />
+    </visual>
+  </link>
+
+<joint name="axistheta" type="revolute">
+  <axis xyz="0 1 0"/>
+  <limit effort="1000.0" lower="0" upper="1.57" velocity="0.5"/>
+   <parent link="swingholder"/>
+  <child link="swing"/>
+  <origin xyz="-0.023 0 0.0765" />
+</joint>
+
+  <link name="magnet">
+    <visual>
+      <geometry>
+        <!--<cylinder length="0.012" radius="0.005"/>-->
+        <mesh filename="package://smargon_support/meshes/visual/PINK.stl"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 -2.3562 0" xyz="0 0 0" />
+    </visual>
+  </link>
+
+<joint name="axisphi" type="revolute">
+  <axis xyz="0 0 1"/>
+  <limit effort="1000.0" lower="-6.28" upper="6.28" velocity="0.5"/>
+  <parent link="swing"/>
+  <child link="magnet"/>
+  <origin xyz="-0.005 0 -0.00627" />
+</joint>
+
+
+
+</robot>

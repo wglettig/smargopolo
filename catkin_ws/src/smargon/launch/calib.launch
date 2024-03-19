@@ -1,0 +1,4 @@
+<launch>
+   <node name="smargonCalibrator" pkg="smargon" type="smargonCalibrator" output="screen" /> 
+   <node name="smargonCalibratorREST" pkg="smargon" type="calib_rest.py" output="screen" /> 
+</launch>

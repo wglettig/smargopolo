@@ -1,0 +1,24 @@
+            ================================
+                MCS2 software for Linux
+                (c) 2018 by SmarAct GmbH
+            ================================
+
+
+The MCS2 software for Linux contains software development kits
+for C/C++ and Python as well as software drivers required to operate
+an MCS2 under Linux.
+
+The software provides an installer script for installing certain
+components to system directories and/or user-specified locations.
+For instructions how to use the installer please refer to the
+document `doc/Installing SmarAct Linux Software.txt`.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+From version 2.1.0 on, the installation process has changed. Previous
+versions of installer for Linux installed the software at `/usr`. 
+Starting with version 2.1.0, the software is installed at 
+`/usr/local` by default, if no installation directory is specifed.
+If you have installed MCS2 software before, we recommend
+uninstalling it with the old installer before installing the new 
+software to avoid mixing old and new software versions on your system.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

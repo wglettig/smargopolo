@@ -1,0 +1,15 @@
+<launch>
+   <rosparam file="$(find smargon)/config/smargonparameters.yaml" />
+   <param name="active_correction_LUT_file" value="$(find smargon)/config/calibrationLUT.csv"/>
+   <node name="RESTful_API" pkg="smargon" type="restful.py" output="screen" />
+   <node name="SmarGon_MCS2" pkg="smargon" type="smargonMCS2" output="screen" />
+   <node name="SmarGonGM" pkg="smargon" type="smargonGM" output="screen" />
+   <node name="Traj" pkg="smargon" type="smargonTraj" output="screen" />
+   <node name="Moderator" pkg="smargon" type="smargonModerator" output="screen" />
+   <node name="Nudge" pkg="smargon" type="nudge" output="screen" />
+   <node name="LJUE9_OMEGA" pkg="smargon" type="LabJackUE9" output="screen" /> 
+   <node name="activeCorrection" pkg="smargon" type="activeCorrection" output="screen" /> 
+   <node name="bounds" pkg="smargon" type="bounds" output="screen" /> 
+   <node name="BCS2SCS" pkg="smargon" type="BCS2SCS" output="screen" /> 
+   <node name="http_server" pkg="smargon" type="http_server.py" output="screen" /> 
+</launch>
